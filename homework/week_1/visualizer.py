@@ -2,7 +2,7 @@
 # Name: Rosa Slagt
 # Student number: 11040548
 """
-This script visualizes data obtained from a .csv file
+This script visualizes data obtained the a .csv file and makes a graphic of it
 """
 
 import csv
@@ -17,20 +17,19 @@ END_YEAR = 2018
 data_dict = {str(key): [] for key in range(START_YEAR, END_YEAR)}
 
 if __name__ == "__main__":
-    # opens the csv file
+    # opens the created csv file
     with open(INPUT_CSV, newline='') as csvfile:
         reader = csv.DictReader(csvfile)
-        # apps to a dictionary with key year, the ratings
+        #  add rating to dictionary with key [year]
         for row in reader:
             data_dict[row["Year"]].append(float(row["Rating"]))
-    # make the x and y lists
+
     x = []
     y = []
 
     for years in data_dict:
         # calculating the average ratings
         y.append((sum(data_dict[years])) / len(data_dict[years]))
-        # determining the x axe
         x.append(years)
 
 # determine to use which data

@@ -25,9 +25,8 @@ def extract_movies(dom):
     - Year of release (only a number!)
     - Actors/actresses (comma separated if more than one)
     - Runtime (only a number!)
-    """  
+    """
 
-    # creates empty lists  
     actors = []
     # a temporary list for the actors per movie
     actors_movie = ''
@@ -37,35 +36,36 @@ def extract_movies(dom):
     # to find the actors and titles of the movies
     for movie in movies:
         line = movie.get("href")
+
+        # titles are found after the =adv_li_tt
         if "=adv_li_tt" in line:
-            # to empty the temporary list
+
+            # to empty the temporary list of actors
             if len(title) > 0:
                 actors.append(actors_movie[:-2])
                 actors_movie = ''
-            # to add the titles to the list
+
             title.append(movie.text)
 
+        # actors are found after the =adv_li_st
         elif "=adv_li_st" in line:
             # to add the actors to the temporary list
             actors_movie += movie.string
             # the actors are seperated with a comma
             actors_movie += ', '
-    
+
     # to make sure the actors from the last movie are added
     actors.append(actors_movie)
 
-    # makes a list for the ratings
     rating = []
-    # finding the ratings
+    # ratings are found after div in 'data-value'
     ratings = dom.find_all("div")
     for rates in ratings:
         if 'data-value' in rates.attrs:
-            # append the ratings to the ratings list
             rating.append(rates.attrs['data-value'])
 
-    # makes a list with the runtime of the particular movie
     runtime = []
-    # finding the runtimes
+    # runtime is foun in the class runtime
     runtimes = dom.find_all("span", class_="runtime")
     for minutes in runtimes:
         # to exclude 'min'
@@ -73,18 +73,18 @@ def extract_movies(dom):
         minutes = minutes[0].strip("()")
         runtime.append(minutes)
 
-    # makes a list for the releaseyears
     year = []
-    #finding the releaseyears
+    # releaseyear is found in the class lister-item-year
     releaseyear = dom.find_all("span", class_="lister-item-year")
-    for years in releaseyear: 
+
+    for years in releaseyear:
         # to make sure it only contains digits
         years = years.string.split(" ")
         years = years[-1].strip("()")
         year.append(years)
 
     # to return one list with all the seperated lists
-    return [title, rating, year, actors, runtime]   
+    return [title, rating, year, actors, runtime]
 
 
 def save_csv(outfile, movies):
@@ -108,6 +108,7 @@ def save_csv(outfile, movies):
 
         # to write the new list
         writer.writerow(movies_list)
+
 
 def simple_get(url):
     """
