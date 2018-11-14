@@ -7,13 +7,14 @@ import pandas as pd
 from bs4 import BeautifulSoup
 from collections import OrderedDict
 import matplotlib.pyplot as plt
+import json
 
 
 # import csv file
 INPUT_CSV = "input.csv"
 
 def reading_csv(INPUT_CSV):
-  
+
     # making lists for the data
     name = []
     region = []
@@ -21,7 +22,7 @@ def reading_csv(INPUT_CSV):
     infant_mortality = []
     gdp = []
 
-    with open(INPUT_CSV, newline='') as csvfile:
+    with open(INPUT_CSV) as csvfile:
         reader = csv.DictReader(csvfile)
 
         # for not adding unvalid data to the lists
@@ -33,13 +34,13 @@ def reading_csv(INPUT_CSV):
             # removing unvalid values
             if row["Region"] is '' or "unknown" in row["Region"]:
                 flag = True
-                    
-            if row["Pop. Density (per sq. mi.)"] is '' or"unknown"in row["Pop. Density (per sq. mi.)"]:
-                flag = True 
+
+            if row["Pop. Density (per sq. mi.)"] is '' or "unknown" in row["Pop. Density (per sq. mi.)"]:
+                flag = True
 
             if row["Infant mortality (per 1000 births)"] is '' or "unknown" in row["Infant mortality (per 1000 births)"]:
                 flag = True
-            
+
             if row["GDP ($ per capita) dollars"] is '' or 'unknown' in row["GDP ($ per capita) dollars"]:
                 flag = True
 
@@ -54,29 +55,15 @@ def reading_csv(INPUT_CSV):
     return [name, region, pop_density, infant_mortality, gdp]
 
 
-def pandas(data_list):
-
-    # determing the different lists for panda
-    country_data = [
-        ("Country", data_list[0]),
-        ("Region", data_list[1]),
-        ("Pop. Density (per sq. mi.)", data_list[2]),
-        ("Infant mortality (per 1000 births)", data_list[3]),
-        ("GDP ($ per capita) dollars", data_list[4])
-    ]
-
-    return[country_data]
-
-def central_tendency (panda):
+def central_tendency (data):
     gdp_list = []
 
     # remove 'dollar'
-    # since it is a list in a list with a tuple
-    for row in panda[0][4][1]:
+    for row in data[4]:
         money = row.split(' ')
         # to be able to calculate the Central Tendencies a float is needed
         gdp_list.append(float(money[0]))
-    
+
     # making panda dataframework
     gdp_data = pd.DataFrame(gdp_list)
 
@@ -86,16 +73,16 @@ def central_tendency (panda):
     gdp_mode = gdp_data.mode()
     gdp_std = gdp_data.std()
 
-    return (gdp_data)
+    return gdp_data
 
-def histogram(panda):
-    gdp_data = central_tendency(panda)
-    
+def histogram(data):
+    gdp_data = central_tendency(data)
+
     # removing outliners that are more than 3 times the std
-    gdp_data = gdp_data[gdp_data[0] < (gdp_data[0].mean() + 3 * gdp_data[0].std())]
- 
+    good_data = gdp_data[gdp_data < (gdp_data.mean() + 3 * gdp_data.std())]
+
     # making a histogram
-    pd.to_numeric(gdp_data[0]).hist(bins = 100)  
+    pd.to_numeric(good_data[0]).hist(bins = 100)
     plt.suptitle('Distribution GDP in dollars per capita)')
     plt.title("Rosa Slagt, 2018")
     plt.ylabel('Absolute amount')
@@ -105,21 +92,21 @@ def histogram(panda):
     plt.show()
 
 
-def mortality(panda):
+def mortality(data):
     mortality_list = []
 
-    for row in panda[0][3][1]:
+    for row in data[3]:
         mortality_list.append(float(row.replace(',', '.')))
 
     return mortality_list
 
 
-def boxplot(panda):
+def boxplot(data):
 
     # reading the mortality
-    mort = mortality(panda)
+    mort = mortality(data)
     df = pd.DataFrame(mort)
-    
+
     # plot boxplot
     df.plot.box()
     plt.title('Rosa Slagt, 2018')
@@ -127,10 +114,27 @@ def boxplot(panda):
     plt.show()
 
 
+def toJSON(data):
+    result = {}
+
+    for i in range(len(data[0])):
+        result[data[0][i].strip()] = {"Region" : data[1][i].strip(), "Pop. Density (per sq. mi.)" : data[2][i],
+                                      "Infant mortality (per 1000 births)" : data[3][i],
+                                      "GDP ($ per capita) dollars" : data[4][i]}
+
+    with open('data.json', 'w') as outfile:
+        json.dump(result, outfile)
+
+
+
 if __name__ == "__main__":
-    list_pandas = reading_csv(INPUT_CSV)
-    panda = pandas(list_pandas)
-    histogram(panda)
-    boxplot(panda)
+    data = reading_csv(INPUT_CSV)
+    histogram(data)
+    boxplot(data)
+    toJSON(data)
+
+
+
+
 
 
