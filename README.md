@@ -1,5 +1,5 @@
 # data-processing
 Assignments for Data Processing
 
-http(s)://slagtkracht.github.io/data-processing
+http://slagtkracht.github.io/data-processing
 
