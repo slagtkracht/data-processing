@@ -1,0 +1,158 @@
+// Rosa Slagt, 11040548
+// interactive chart about renewable energy in differental countries
+ 
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>D3 Test</title>
+        // opening the d3 file
+        <script src="d3/d3.js"></script>
+    </head>
+    <body>
+      // making the text in d3
+        <script type="text/javascript">
+
+            // add the titel and text
+            d3.select("head")
+              .append("title")
+              .text("Renewable energy around the world")
+              .attr("class", "bar");
+
+            d3.select("body")
+              .append("h1")
+              .text("Renewable energy around the world");
+
+            d3.select("body")
+              .append("h2")
+              .text("The chart shows the percentage of renewable energy per country in 2016");          
+
+            d3.select("body")
+              .append("h3")
+              .text("Rosa Slagt, 11040548"); 
+
+            d3.select("body")
+              .append("p")
+              .text("Source: OECD (2017)")
+
+            // making the tool for the mouse click
+            var tool = d3.select("body")
+              .append("div")
+              .style("position", "absolute")
+              .style("visibility", "hidden")           
+            
+             // opening the json document 
+            d3.json('data_2.json').then(function(data) {
+              console.log(data);
+              // making countries the key
+              countries = Object.keys(data)
+
+              // to save the data on
+              dataList = []
+
+              // adding intergers(value) to the list of data
+              for (var i = 0; i < countries.length; i++){
+                dataList.push(parseInt(data[countries[i]]["Value"]))
+              }
+              console.log(dataList);
+              
+              // determining width, height and padding
+              var w = 800;
+              var h = 300;
+              var barPadding = 1;
+
+             // selecting for SVG               
+              var svg = d3.select("body")
+                          .append("svg")
+                          .attr("width", w)
+                          .attr("height", h);
+
+              // determing the padding
+              var yPadding = h / 10;
+              var xPadding = h / 15;
+
+              // making the y axe
+              var yScale = d3.scaleLinear()
+                              .domain([0, d3.max(dataList)])
+                              .range([h- yPadding, yPadding]);
+
+              // making the x axe
+              var xScale = d3.scaleLinear()
+                              .domain([0, dataList.length])
+                              .range([w, xPadding]);
+          
+              // adding the padding to make the chart correct
+              var  bars = svg.selectAll("rect")
+                          .data(dataList)
+                          .enter()
+                          .append("rect")
+                          .attr("x", function(d, i) {
+                              return i * ((w - xPadding) /dataList.length) + xPadding; 
+                          })
+                          .attr("y", function(d) {
+                            return yScale(d);
+
+                          })
+                          .attr("width", (w - xPadding) / dataList.length - barPadding)
+                          .attr("height", function(d) {
+                            return h - yScale(d) - yPadding;
+                          })
+                          .attr("fill", "teal")
+                          
+                          // to make the chart interactive
+                          .on("mouseover", function(d){
+                            d3.select(this)
+                              .attr("fill", "yellow")
+                            return (tool.style("visibility", "visible")
+                                        .text("Value = " + d));
+                          })
+                          .on("mouseout", function(){
+                            return (tool.style("visibility", "hidden"),
+                              bars.attr("fill", "teal"));
+                
+                          })
+                          .on("mousemove", function(d, i){
+                            return (tool.style("top", event.clientY + "px")
+                                        .style("left", event.clientX + 5 + "px"));
+                          });
+
+              // call y-axis ticks
+              svg.append("g")
+                .attr("class", "axis")
+                .attr("transform", "translate(" + xPadding + ",0)")
+                .call(d3.axisLeft(yScale));
+              
+              // labeling the y axe
+              svg.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 2 * xPadding)
+                .attr("x", -h / 2)
+                .text("% renewable energy");
+              
+              // to name the y-axe
+              svg.selectAll("name")
+                .data(countries)
+                .enter()
+                .append("text")
+                .attr("transform", "rotate(-90)")
+                .text(function(d) {
+                  return d;
+                })
+                // increasing y and x axe
+                .attr("y", function(d, i) {
+                  return (i * ((w - xPadding) /dataList.length) + 2 * xPadding);
+                })
+                .attr("x", -h)
+                .attr("class", "name")
+          }); 
+          </script>
+
+          <style>          
+            div.rect {
+                display: inline-block;
+                background-color: teal;
+            }
+
+            </style>
+        </body>
+</html>
