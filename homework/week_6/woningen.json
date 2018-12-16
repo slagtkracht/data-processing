@@ -1,0 +1,98 @@
+[
+ {
+   "Regio's": "Amsterdam",
+   "Oppervlakteklasse": "75 tot 100 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 105893
+ },
+ {
+   "Regio's": "Amsterdam",
+   "Oppervlakteklasse": "100 tot 150 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 56523
+ },
+ {
+   "Regio's": "Amsterdam",
+   "Oppervlakteklasse": "150 tot 250 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 13166
+ },
+ {
+   "Regio's": "Amsterdam",
+   "Oppervlakteklasse": "250 tot 500 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 2272
+ },
+ {
+   "Regio's": "Rotterdam",
+   "Oppervlakteklasse": "75 tot 100 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 101602
+ },
+ {
+   "Regio's": "Rotterdam",
+   "Oppervlakteklasse": "100 tot 150 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 71218
+ },
+ {
+   "Regio's": "Rotterdam",
+   "Oppervlakteklasse": "150 tot 250 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 15482
+ },
+ {
+   "Regio's": "Rotterdam",
+   "Oppervlakteklasse": "250 tot 500 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 2216
+ },
+ {
+   "Regio's": "'s-Gravenhage (gemeente)",
+   "Oppervlakteklasse": "75 tot 100 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 70941
+ },
+ {
+   "Regio's": "'s-Gravenhage (gemeente)",
+   "Oppervlakteklasse": "100 tot 150 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 56836
+ },
+ {
+   "Regio's": "'s-Gravenhage (gemeente)",
+   "Oppervlakteklasse": "150 tot 250 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 20641
+ },
+ {
+   "Regio's": "'s-Gravenhage (gemeente)",
+   "Oppervlakteklasse": "250 tot 500 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 4229
+ },
+ {
+   "Regio's": "Utrecht (gemeente)",
+   "Oppervlakteklasse": "75 tot 100 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 48914
+ },
+ {
+   "Regio's": "Utrecht (gemeente)",
+   "Oppervlakteklasse": "100 tot 150 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 46314
+ },
+ {
+   "Regio's": "Utrecht (gemeente)",
+   "Oppervlakteklasse": "150 tot 250 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 9282
+ },
+ {
+   "Regio's": "Utrecht (gemeente)",
+   "Oppervlakteklasse": "250 tot 500 m²",
+   "Perioden": 2018,
+   "Beginstand woningvoorraad (aantal)": 1613
+ }
+]
