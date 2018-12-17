@@ -8,11 +8,11 @@ information regarding the pie chart is from: https://codepen.io/anon/pen/xmVONM
 window.onload = function() {
 
     d3.json("woningen.json").then(function(data) {
-    // console.log(data)
     var steden = ["Amsterdam","Rotterdam","'s-Gravenhage (gemeente)","Utrecht (gemeente)"];
+    // used for the text on the page
     var nameSteden = ["Amsterdam","Rotterdam","'s-Gravenhage","Utrecht"];
+
     var oppervlakteklasse = ["75 tot 100 m²","100 tot 150 m²","150 tot 250 m²","250 tot 500 m²"];
-    var totalHuizen = [[],[],[],[]];
     var totalAdam = 0;
     var totalRot = 0;
     var totalUt = 0;
@@ -24,10 +24,11 @@ window.onload = function() {
     var dhDict = []; 
 
     for(var i = 0; i < data.length; i++){
-        // total middle big houses
+        // totalCity is the total of als the houses
             if(data[i]["Regio's"] === steden[0]){
                 totalAdam = totalAdam + data[i]["Beginstand woningvoorraad (aantal)"]
 
+                // the cityDict is a list with dictionaries of the houses and size
                 adamDict.push({
                     name:   data[i]["Oppervlakteklasse"],
                     value: data[i]["Beginstand woningvoorraad (aantal)"]
@@ -65,6 +66,7 @@ window.onload = function() {
             }
 
         }
+        // to add all the lists with dics to the totalDict
         totalDict = {};
         totalDict["Amsterdam"] = adamDict;
         totalDict["Rotterdam"] = rotDict;
@@ -179,7 +181,7 @@ window.onload = function() {
                     })
                     // increasing y and x axe
                     .attr("x", function(d, i) {
-                    return (i * ((w - xPadding) /dataLijst.length));
+                        return (i * ((w - xPadding) /dataLijst.length));
                     })
                     .attr("y", h - 10)
                     .attr("class", "name")
@@ -200,21 +202,20 @@ window.onload = function() {
         // to remove the old pieChart 
         if (update){
             var svgPie = d3.select(".pie");
-            console.log("removed")
             svgPie.selectAll("*").remove();
         }
         // if there was no old piechart, make new one
         else {
             var svgPie = d3.select("body")
-                    .append('svg')
-                    .attr('class', 'pie')
-                    .attr('width', width + 80)
-                    .attr('height', height + 50);                   
+                            .append('svg')
+                            .attr('class', 'pie')
+                            .attr('width', width + 80)
+                            .attr('height', height + 50);                   
         };
         
 
         var g = svgPie.append('g')
-                   .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
+                      .attr('transform', 'translate(' + (width/2) + ',' + (height/2) + ')');
         
         // to make the donut chart
         var arc = d3.arc()
@@ -286,34 +287,34 @@ window.onload = function() {
                  .attr('text-anchor', 'middle')
                  .attr('dy', '.35em')
                  .text(text);
-
-    var legend = svgPie.selectAll('.legend')
-                        .data(oppervlakteklasse)
-                        .enter().append('g')
-                        .attr("class", "legend")
-                        .attr("transform", function (d, i) {
-                        {
-                            return "translate(0," + i * 20 + ")"
-                        }
-                        })
+        
+        // to make the legend
+        var legend = svgPie.selectAll('.legend')
+                            .data(oppervlakteklasse)
+                            .enter().append('g')
+                            .attr("class", "legend")
+                            .attr("transform", function (d, i) {
+                            {
+                                return "translate(0," + i * 20 + ")"
+                            }
+                            })
 
         // to append the colours
         legend.append('rect')
-            .attr("x", 560)
-            .attr("y", 450)
-            .attr("width", 10)
-            .attr("height", 10)
-            .style("fill", function (d, i) {
+             .attr("x", 560)
+             .attr("y", 450)
+             .attr("width", 10)
+             .attr("height", 10)
+             .style("fill", function (d, i) {
                 return color(i)
         })
-        
+        // to add the legend text
         legend.append('text')
             .attr("x", 580)
             .attr("y", 460)
-        //.attr("dy", ".35em")
-        .text(function (d, i) {
-            return d
-        })
+            .text(function (d, i) {
+                return d
+            })
     };
 
 
