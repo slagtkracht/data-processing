@@ -34,12 +34,11 @@ window.onload = function() {
                     value: data[i]["Beginstand woningvoorraad (aantal)"]
                     });
 
-                totalHuizen[0].push(data[i]["Beginstand woningvoorraad (aantal)"])
-                "Oppervlakteklasse"
+
 
             }else if(data[i]["Regio's"] ===  steden[1]){
                 totalRot = totalRot + data[i]["Beginstand woningvoorraad (aantal)"]
-                totalHuizen[1].push(data[i]["Beginstand woningvoorraad (aantal)"])
+               
 
                 rotDict.push({
                     name:   data[i]["Oppervlakteklasse"],
@@ -48,7 +47,7 @@ window.onload = function() {
 
             }else if(data[i]["Regio's"] ===  steden[2]){
                 totalDh = totalDh + data[i]["Beginstand woningvoorraad (aantal)"]
-                totalHuizen[2].push(data[i]["Beginstand woningvoorraad (aantal)"])
+               
 
                 dhDict.push({
                     name:   data[i]["Oppervlakteklasse"],
@@ -57,7 +56,7 @@ window.onload = function() {
 
             }else if(data[i]["Regio's"] ===  steden[3]){
                 totalUt = totalUt + data[i]["Beginstand woningvoorraad (aantal)"]
-                totalHuizen[3].push(data[i]["Beginstand woningvoorraad (aantal)"])
+                
 
                 utDict.push({
                     name:   data[i]["Oppervlakteklasse"],
