@@ -4,7 +4,7 @@
   
   .pie text {
     font-family: "Verdana";
-    fill: "teal";
+    fill: "black";
   }
   
   .pie .name-text{
@@ -14,3 +14,45 @@
   .pie .value-text{
     font-size: 3em;
   }
+
+
+.bar{
+  margin: 20px;
+}
+
+.bar text {
+  font-family: "Verdana";
+  fill: "black";
+}
+
+.bar .name-text{
+  font-size: 1em;
+}
+
+.bar .value-text{
+  font-size: 3em;
+
+}
+
+
+body {
+  background-color: snow;
+}
+h1 {
+  color: black;
+  font-family: "Verdana";
+}
+
+h2{
+  color: black;
+  font-family: "Verdana";
+}
+
+h3{
+  color: black;
+  font-family: "Verdana";
+}
+p {
+  color: black;
+  font-family: "Verdana";
+}
